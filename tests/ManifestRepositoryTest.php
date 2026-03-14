@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Manifest Repository Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\Exceptions\ManifestOverwriteException;
     use Wingman\Locator\Objects\Manifest;
@@ -34,6 +38,7 @@
             );
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "add() — Manifest Is Stored",
             description: "After add(), get() by path returns the saved manifest."
@@ -49,6 +54,7 @@
             $this->assertTrue($stored->getNamespace() === "App", "Stored manifest should have namespace 'App'.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "add() — Returns Self",
             description: "add() returns the same repository instance."
@@ -61,6 +67,7 @@
             $this->assertTrue($result === $repo, "add() should return the same instance.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "add() — Duplicate Path Throws",
             description: "Adding a second manifest with the same source path throws ManifestOverwriteException."
@@ -80,6 +87,7 @@
             $this->assertTrue($thrown, "Adding two manifests with the same path should throw ManifestOverwriteException.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "get() — By Index",
             description: "get() with an integer index returns the manifest at that position."
@@ -94,6 +102,7 @@
             $this->assertTrue($manifest->getNamespace() === "First", "First manifest added should be at index 0.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "get() — Unknown Path Returns Null",
             description: "get() returns null for a path that was never added."
@@ -104,6 +113,7 @@
             $this->assertTrue($repo->get("/nonexistent.manifest") === null, "get() should return null for an unknown path.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "get() — Unknown Index Returns Null",
             description: "get() returns null when the integer index is out of bounds."
@@ -114,6 +124,7 @@
             $this->assertTrue($repo->get(99) === null, "get() should return null for an out-of-bounds index.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "getAll() — Returns All Manifests",
             description: "getAll() returns every manifest that was added, in insertion order."
@@ -127,6 +138,7 @@
             $this->assertTrue(count($all) === 2, "getAll() should return 2 manifests.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "getAllPaths() — Returns All Paths",
             description: "getAllPaths() returns the source paths of all added manifests."
@@ -141,6 +153,7 @@
             $this->assertTrue(in_array("/tmp/b.manifest", $paths), "/tmp/b.manifest should be in getAllPaths().");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "dehydrate() — Returns Serialisable Array",
             description: "dehydrate() returns an array where every element has a 'namespace' key."
@@ -155,6 +168,7 @@
             $this->assertTrue(isset($data[0]["namespace"]), "Each entry should contain a 'namespace' key.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Multiple Namespaces — Stored Independently",
             description: "Two manifests with different namespaces can coexist and each retrieve correctly."

@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — PathRootTypeTest Tests
      * Created by:      Angel Politis
      * Creation Date:   Feb 23 2026
      * Last Modified:   Feb 23 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     use Wingman\Argus\Test;
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Locator\Enums\PathRootType;
     use Wingman\Locator\PathUtils;
 
@@ -19,6 +23,7 @@
      */
     class PathRootTypeTest extends Test {
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Drive Path Detection",
             description: "Tests that Windows-style drive paths are correctly identified and parsed."
@@ -33,6 +38,7 @@
             $this->assertTrue($relative === PathUtils::fix('Windows\System32'), "Relative mismatch: $relative");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Variable Path Detection",
             description: "Tests that bracketed variables like @{os} are correctly extracted."
@@ -46,6 +52,7 @@
             $this->assertTrue($relative === PathUtils::fix('src/Locator'), "Relative path mismatch.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Namespace Notation Detection",
             description: "Tests both @path and colon:notation for namespaces."
@@ -64,6 +71,7 @@
             $this->assertTrue($arg2 === 'Framework', "Failed to extract namespace 'Framework'.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Absolute vs Explicit Relative",
             description: "Ensures /path is Absolute but ./path is Explicit Relative."
@@ -81,6 +89,7 @@
             $this->assertTrue($relativeR === PathUtils::fix('local/config'), "Relative path should strip './'.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "URL Protection",
             description: "Ensures URLs are not misidentified as Namespaces."
@@ -95,6 +104,7 @@
             $this->assertTrue($type !== PathRootType::NAMESPACE, "URL scheme identified as Namespace.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "IsRelative Helper",
             description: "Verifies the isRelative() method correctly identifies relative types."

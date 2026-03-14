@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Cache Manager Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 14 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\CacheManager;
     use Wingman\Locator\Objects\Manifest;
@@ -41,6 +45,7 @@
             }
         }
 
+        #[Group("Cache")]
         #[Define(
             name: "Load — Missing File",
             description: "load() returns null when no cache file exists yet."
@@ -51,6 +56,7 @@
             $this->assertTrue($manager->load() === null, "Expected null for a non-existent cache file.");
         }
 
+        #[Group("Cache")]
         #[Define(
             name: "Save And Load Round-Trip",
             description: "Data saved via save() is faithfully returned by a subsequent load() call."
@@ -74,6 +80,7 @@
             $this->assertTrue(count($data["manifests"]) === 1, "Loaded data should have exactly one manifest entry.");
         }
 
+        #[Group("Cache")]
         #[Define(
             name: "Clear — File Is Deleted",
             description: "clear() removes the cache file and subsequent load() returns null."
@@ -89,6 +96,7 @@
             $this->assertTrue($manager->load() === null, "load() should return null after clear().");
         }
 
+        #[Group("Cache")]
         #[Define(
             name: "Clear — No File Is Silently Ignored",
             description: "clear() returns true and does not throw when the cache file does not exist."
@@ -100,6 +108,7 @@
             $this->assertTrue($result, "clear() should return true even when no file exists.");
         }
 
+        #[Group("Cache")]
         #[Define(
             name: "TTL — Fresh Cache Is Returned",
             description: "A cache that is within its maxAge is returned by load()."
@@ -113,6 +122,7 @@
             $this->assertTrue(is_array($data), "A fresh cache within its TTL should be returned.");
         }
 
+        #[Group("Cache")]
         #[Define(
             name: "TTL — Stale Cache Returns Null",
             description: "A cache whose timestamp is older than maxAge is treated as expired and load() returns null."
@@ -132,6 +142,7 @@
             $this->assertTrue($loaded === null, "A stale cache should return null.");
         }
 
+        #[Group("Cache")]
         #[Define(
             name: "TTL Disabled — Old Timestamp Is Accepted",
             description: "When maxAge is 0 (disabled), load() returns data regardless of how old the timestamp is."

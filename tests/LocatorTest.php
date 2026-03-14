@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Locator Integration Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\Interfaces\LocatorInterface;
     use Wingman\Locator\Locator;
@@ -30,6 +34,7 @@
             Locator::setGlobal(null);
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "get() — Returns LocatorInterface",
             description: "Locator::get() returns an instance that implements LocatorInterface."
@@ -40,6 +45,7 @@
             $this->assertTrue($locator instanceof LocatorInterface, "get() should return a LocatorInterface instance.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "get() — Singleton Semantics",
             description: "Two consecutive calls to get() return the same instance."
@@ -51,6 +57,7 @@
             $this->assertTrue($a === $b, "get() should always return the same singleton instance.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "setGlobal() — Injects Custom Instance",
             description: "After setGlobal(), get() returns the injected instance, not the default Locator."
@@ -72,6 +79,7 @@
             $this->assertTrue(Locator::get() === $mock, "get() should return the instance injected via setGlobal().");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "setGlobal(null) — Resets Singleton",
             description: "After setGlobal(null), the next get() creates a fresh Locator instance."
@@ -85,6 +93,7 @@
             $this->assertTrue($fresh !== $original, "After setGlobal(null), get() should return a new instance.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "Config — Caching Can Be Disabled",
             description: "Constructing a Locator with locator.caching.enabled = false does not throw."
@@ -101,6 +110,7 @@
             $this->assertTrue(!$thrown, "Creating Locator with caching disabled should not throw.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "Config — TTL Is Applied",
             description: "A Locator constructed with a non-zero TTL does not throw."
@@ -117,6 +127,7 @@
             $this->assertTrue(!$thrown, "Creating Locator with a TTL should not throw.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "discoverManifests() — Custom Directory",
             description: "discoverManifests() accepts a custom directory and an explicit profile without throwing."
@@ -138,6 +149,7 @@
             $this->assertTrue(!$thrown, "discoverManifests() with a custom dir should not throw.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "discoverManifests() — Idempotent",
             description: "Calling discoverManifests() twice for the same root/profile does not throw or duplicate work."
@@ -158,6 +170,7 @@
             $this->assertTrue(!$thrown, "Repeated discoverManifests() calls should be idempotent.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "getPathFor() — Returns String",
             description: "getPathFor() always returns a non-empty string for any well-formed path expression."
@@ -170,6 +183,7 @@
             $this->assertTrue(is_string($result) && $result !== "", "getPathFor() should return a non-empty string.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "getPathFor() — Cache Hit Returns Same Value",
             description: "Two calls with the same expression return identical results (cache hit path)."
@@ -184,6 +198,7 @@
             $this->assertTrue($first === $second, "Repeated calls to getPathFor() should return the same value.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "getPathTo() — Returns Null For Nonexistent Path",
             description: "getPathTo() returns null when the resolved path does not exist on the filesystem."
@@ -196,6 +211,7 @@
             $this->assertTrue($result === null, "getPathTo() should return null for a path that does not exist.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "getPathToFile() — Returns Null For Directory",
             description: "getPathToFile() returns null when the resolved path is a directory, not a file."
@@ -210,6 +226,7 @@
             $this->assertTrue($result === null, "getPathToFile() should return null when the resolved path is a directory.");
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "getManifestRepository() — Returns Repository Instance",
             description: "getManifestRepository() returns a ManifestRepository after construction."

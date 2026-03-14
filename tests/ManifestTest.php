@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Manifest Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\NamespaceManager;
     use Wingman\Locator\Objects\Manifest;
@@ -41,6 +45,7 @@
             ];
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Namespace Is Stored",
             description: "The namespace provided in data is accessible via getNamespace()."
@@ -51,6 +56,7 @@
             $this->assertTrue($manifest->getNamespace() === "App", "Expected namespace 'App'.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Default Namespace",
             description: "When no namespace key is present in data, the default namespace is used."
@@ -64,6 +70,7 @@
             );
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Source Path Is Stored",
             description: "The source path passed to from() is available via getSourcePath()."
@@ -74,6 +81,7 @@
             $this->assertTrue($manifest->getSourcePath() === $this->sourcePath, "Source path mismatch.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "HasNamespace — Direct Match",
             description: "hasNamespace() returns true when the manifest's own namespace matches."
@@ -84,6 +92,7 @@
             $this->assertTrue($manifest->hasNamespace("App"), "Expected hasNamespace() to return true for direct match.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "HasNamespace — Alias Match",
             description: "hasNamespace() returns true when the given name matches a namespace alias."
@@ -94,6 +103,7 @@
             $this->assertTrue($manifest->hasNamespace("AppAlias"), "Expected hasNamespace() to return true for alias match.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "HasNamespace — No Match",
             description: "hasNamespace() returns false for a name that is neither the namespace nor an alias."
@@ -104,6 +114,7 @@
             $this->assertTrue(!$manifest->hasNamespace("Unknown"), "Expected hasNamespace() to return false for an unrelated name.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Symbols Are Stored",
             description: "Symbol entries provided in data are accessible via getSymbols()."
@@ -115,6 +126,7 @@
             $this->assertTrue(!empty($symbols), "Expected non-empty symbols array.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Aliases Are Stored",
             description: "Path aliases provided in data are accessible via getAliases()."
@@ -125,6 +137,7 @@
             $this->assertTrue($manifest->getAliases() === $this->baseData()["aliases"], "Alias map mismatch.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Settings Are Stored",
             description: "Custom settings provided in data are accessible via getSettings()."
@@ -135,6 +148,7 @@
             $this->assertTrue($manifest->getSettings()["autoScan"] === true, "Expected autoScan setting to be true.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Dehydrate Preserves Namespace",
             description: "dehydrate() output retains the namespace, aliases, symbols and settings."
@@ -149,6 +163,7 @@
             $this->assertTrue($data["settings"]["autoScan"] === true, "Dehydrated settings mismatch.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Hydrate Round-Trip",
             description: "A manifest dehydrated and then rehydrated has the same namespace, aliases and settings."

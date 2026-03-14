@@ -1,17 +1,21 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — End-to-End Integration Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use ReflectionObject;
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\CacheManager;
     use Wingman\Locator\Locator;
@@ -79,14 +83,15 @@
             @unlink($this->manifestFile);
             @rmdir($this->tempDir);
 
-            if (class_exists(\Wingman\Cacher\Cacher::class)) {
-                $cacher = new \Wingman\Cacher\Cacher();
-                $cacher->delete(\Wingman\Locator\Bridge\Cacher\CacheManager::CACHE_KEY);
+            if (class_exists(\Wingman\Stasis\Cacher::class)) {
+                $cacher = new \Wingman\Stasis\Cacher();
+                $cacher->delete(\Wingman\Locator\Bridge\Stasis\CacheManager::CACHE_KEY);
             }
 
             Locator::setGlobal(null);
         }
 
+        #[Group("Integration")]
         #[Define(
             name: "Cold Boot — Discovers Manifest From Disk",
             description: "A fresh Locator with caching off auto-discovers a manifest planted in a temporary directory used as a fake project root (via DOCUMENT_ROOT override)."
@@ -105,6 +110,7 @@
             );
         }
 
+        #[Group("Integration")]
         #[Define(
             name: "Path Resolution — Returns String After Discovery",
             description: "getPathFor() returns a non-empty string for a symbol defined in the discovered manifest."
@@ -120,6 +126,7 @@
             );
         }
 
+        #[Group("Integration")]
         #[Define(
             name: "CacheManager — File-Based Round-Trip",
             description: "CacheManager::save() writes a PHP cache file and load() restores the exact same manifests and roots."
@@ -148,6 +155,7 @@
             @unlink($cacheFile);
         }
 
+        #[Group("Integration")]
         #[Define(
             name: "Warm Boot — Restores Manifests From Cache",
             description: "After a cold boot populates the cache, a new Locator instance with no manifest file on disk still provides the manifest via the warm-boot path."

@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Namespace Object Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\Objects\NamespaceObject;
     use Wingman\Locator\Objects\Symbol;
@@ -21,6 +25,7 @@
      */
     class NamespaceObjectTest extends Test {
 
+        #[Group("Namespaces")]
         #[Define(
             name: "Name Is Stored",
             description: "The name given to the constructor is returned by getName()."
@@ -31,6 +36,7 @@
             $this->assertTrue($ns->getName() === "App", "getName() should return 'App'.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "Path Is Normalised",
             description: "The path is passed through PathUtils::fix() so separators match the OS."
@@ -41,6 +47,7 @@
             $this->assertTrue($ns->getPath() === PathUtils::fix("/var/www/app"), "Path should be normalised.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "Aliases — Initial Value",
             description: "Aliases provided to the constructor are returned by getAliases()."
@@ -52,6 +59,7 @@
             $this->assertTrue(in_array("Application", $aliases), "Initial alias 'Application' should be present.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "addAlias() — Fluent Return",
             description: "addAlias() returns the same NamespaceObject instance."
@@ -63,6 +71,7 @@
             $this->assertTrue($result === $ns, "addAlias() should return the same instance.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "addAlias() — Alias Is Added",
             description: "After addAlias(), getAliases() contains the new alias."
@@ -74,6 +83,7 @@
             $this->assertTrue(in_array("AppAlias", $ns->getAliases()), "Added alias should be in getAliases().");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "addAliases() — Deduplicates",
             description: "addAliases() with a value already present does not produce a duplicate."
@@ -86,6 +96,7 @@
             $this->assertTrue($count === 1, "Duplicate alias 'Dup' should appear exactly once.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "addSymbol() — Symbol Is Stored",
             description: "After addSymbol(), getSymbol() returns a Symbol with the correct name and target."
@@ -100,6 +111,7 @@
             $this->assertTrue($symbol->getTarget() === PathUtils::fix("src/Controllers"), "Symbol target mismatch.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "addSymbol() — Manifest Is Stored",
             description: "When a manifest path is provided, Symbol::getManifest() returns it."
@@ -114,6 +126,7 @@
             );
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "getSymbol() — Unknown Returns Null",
             description: "getSymbol() returns null when the requested symbol does not exist."
@@ -124,6 +137,7 @@
             $this->assertTrue($ns->getSymbol("ghost") === null, "getSymbol() should return null for an unknown name.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "addSymbols() — Bulk Add",
             description: "addSymbols() registers all entries and getSymbols() returns all of them."
@@ -136,6 +150,7 @@
             $this->assertTrue(count($symbols) === 2, "Two symbols should be registered after addSymbols().");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "setSymbols() — Replaces Existing",
             description: "setSymbols() replaces any previously registered symbols entirely."
@@ -149,6 +164,7 @@
             $this->assertTrue(isset($symbols[PathUtils::fix("new")]), "New symbol from setSymbols() should exist.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "addSetting() / addSettings() — Values Merged",
             description: "addSetting() adds a single key-value pair; addSettings() deep-merges an array."
@@ -163,6 +179,7 @@
             $this->assertTrue($settings["version"] === "1.0", "'version' setting should be present.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "addVirtual() — String Entry Normalised",
             description: "A string virtual entry has its separators normalised via PathUtils::fix()."
@@ -176,6 +193,7 @@
             $this->assertTrue($virtuals["index"] === PathUtils::fix("public/index.php"), "Virtual string should be normalised.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "addVirtual() — Nested Array Normalised Recursively",
             description: "Nested array virtual entries have all string values normalised, preserving structure."
@@ -197,6 +215,7 @@
             );
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "import() — All Keys Merged",
             description: "import() correctly merges aliases, settings, symbols and virtuals in a single call."
@@ -216,6 +235,7 @@
             $this->assertTrue(isset($ns->getVirtuals()["about"]), "Imported virtual 'about' should be present.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "import() — Returns Self",
             description: "import() returns the same NamespaceObject, enabling method chaining."
@@ -227,6 +247,7 @@
             $this->assertTrue($result === $ns, "import() should return the same instance.");
         }
 
+        #[Group("Namespaces")]
         #[Define(
             name: "from() — Factory Creates From Data Array",
             description: "NamespaceObject::from() creates an instance with the correct name, path and aliases."

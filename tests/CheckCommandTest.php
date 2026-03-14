@@ -1,17 +1,21 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Console Bridge — Check Command Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 13 2026
      * Last Modified:   Mar 13 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use ReflectionClass;
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Console\Attributes\Command as Cmd;
     use Wingman\Console\Console;
@@ -87,6 +91,7 @@
             if (ob_get_level() > 0) ob_end_clean();
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "CheckCommand — Cmd Attribute Name",
             description: "The #[Cmd] attribute on CheckCommand declares the name 'locator:check'."
@@ -97,6 +102,7 @@
             $this->assertTrue($name === "locator:check", "CheckCommand should declare the name 'locator:check'.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "check — Returns One When Any Type Not Found",
             description: "With default type, run() returns 1 when getPathTo() returns null."
@@ -114,6 +120,7 @@
             $this->assertTrue($result === 1, "run() should return 1 when getPathTo() returns null.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "check — Returns One When File Type Not Found",
             description: "When type is 'file' and getPathToFile() returns null, run() returns 1."
@@ -131,6 +138,7 @@
             $this->assertTrue($result === 1, "run() should return 1 when getPathToFile() returns null.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "check — Returns Zero When Any Type Found",
             description: "With default type, run() returns 0 when getPathTo() returns a non-null path."
@@ -148,6 +156,7 @@
             $this->assertTrue($result === 0, "run() should return 0 when getPathTo() returns a non-null path.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "check — Returns Zero When Directory Found",
             description: "When type is 'dir' and getPathToDirectory() returns a path, run() returns 0."

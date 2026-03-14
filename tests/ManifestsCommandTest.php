@@ -1,17 +1,21 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Console Bridge — Manifests Command Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 13 2026
      * Last Modified:   Mar 13 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use ReflectionClass;
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Console\Attributes\Command as Cmd;
     use Wingman\Console\Console;
@@ -90,6 +94,7 @@
             if (ob_get_level() > 0) ob_end_clean();
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "ManifestsCommand — Cmd Attribute Name",
             description: "The #[Cmd] attribute on ManifestsCommand declares the name 'locator:manifests'."
@@ -100,6 +105,7 @@
             $this->assertTrue($name === "locator:manifests", "ManifestsCommand should declare the name 'locator:manifests'.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "manifests — Returns Zero When Namespace Filter Yields No Match",
             description: "When --namespace is specified but no loaded manifest matches, run() returns 0."
@@ -117,6 +123,7 @@
             $this->assertTrue($result === 0, "run() should return 0 when the namespace filter matches nothing.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "manifests — Returns Zero When No Manifests Loaded",
             description: "When the manifest repository is empty, run() returns 0."
@@ -134,6 +141,7 @@
             $this->assertTrue($result === 0, "run() should return 0 when no manifests are loaded.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "manifests — Returns Zero With Populated Repository",
             description: "When manifests are present and no filter is applied, run() returns 0 and renders the table."

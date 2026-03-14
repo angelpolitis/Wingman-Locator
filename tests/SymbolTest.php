@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Symbol Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\Objects\Symbol;
 
@@ -19,6 +23,7 @@
      */
     class SymbolTest extends Test {
 
+        #[Group("Manifests")]
         #[Define(
             name: "Name Is Stored",
             description: "The name passed to the constructor is returned by getName()."
@@ -29,6 +34,7 @@
             $this->assertTrue($symbol->getName() === "controllers", "getName() should return the constructor value.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Target Is Stored",
             description: "The target passed to the constructor is returned by getTarget()."
@@ -39,6 +45,7 @@
             $this->assertTrue($symbol->getTarget() === "src/Controllers", "getTarget() should return the constructor value.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Manifest Is Stored When Provided",
             description: "The manifest path passed to the constructor is returned by getManifest()."
@@ -52,6 +59,7 @@
             );
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Manifest Defaults To Null",
             description: "When no manifest is given, getManifest() returns null."
@@ -62,6 +70,7 @@
             $this->assertTrue($symbol->getManifest() === null, "getManifest() should return null when not provided.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Empty Name Is Accepted",
             description: "A Symbol with an empty string name does not throw and stores the value faithfully."
@@ -72,6 +81,7 @@
             $this->assertTrue($symbol->getName() === "", "An empty name should be stored as-is.");
         }
 
+        #[Group("Manifests")]
         #[Define(
             name: "Empty Target Is Accepted",
             description: "A Symbol with an empty string target does not throw and stores the value faithfully."

@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Asserter Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\Asserter;
     use Wingman\Locator\Exceptions\NonexistentDirectoryException;
@@ -61,6 +65,7 @@
 
         // ─── requireDirectoryAt ───────────────────────────────────────────────────
 
+        #[Group("Utilities")]
         #[Define(
             name: "requireDirectoryAt() — Passes For Existing Directory",
             description: "No exception is thrown when the path points to an existing directory."
@@ -76,6 +81,7 @@
             $this->assertTrue(!$thrown, "requireDirectoryAt() should not throw for a valid directory.");
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "requireDirectoryAt() — Throws For Non-Existent Path",
             description: "NonexistentDirectoryException is thrown when the path does not exist on the filesystem."
@@ -91,6 +97,7 @@
             $this->assertTrue($thrown, "requireDirectoryAt() should throw NonexistentDirectoryException for a non-existent path.");
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "requireDirectoryAt() — Throws For File Path",
             description: "NotADirectoryException is thrown when the path points to a file rather than a directory."
@@ -108,6 +115,7 @@
 
         // ─── requireFileAt ────────────────────────────────────────────────────────
 
+        #[Group("Utilities")]
         #[Define(
             name: "requireFileAt() — Passes For Existing File",
             description: "No exception is thrown when the path points to an existing readable file."
@@ -123,6 +131,7 @@
             $this->assertTrue(!$thrown, "requireFileAt() should not throw for a valid file.");
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "requireFileAt() — Throws For Non-Existent Path",
             description: "NonexistentFileException is thrown when the path does not exist on the filesystem."
@@ -138,6 +147,7 @@
             $this->assertTrue($thrown, "requireFileAt() should throw NonexistentFileException for a non-existent path.");
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "requireFileAt() — Throws For Directory Path",
             description: "NotAFileException is thrown when the path points to a directory rather than a file."
@@ -153,6 +163,7 @@
             $this->assertTrue($thrown, "requireFileAt() should throw NotAFileException when the path is a directory.");
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "requireFileAt() — Skips Check For URLs",
             description: "requireFileAt() returns without throwing when given a URL-style path since URL resources are not validated as local files."
@@ -168,6 +179,7 @@
             $this->assertTrue(!$thrown, "requireFileAt() should not throw for a URL-style path.");
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "requireFileAt() — Skips Check For PHP Streams",
             description: "requireFileAt() returns without throwing for PHP stream wrappers such as php://input."
@@ -185,6 +197,7 @@
 
         // ─── isDirectoryEmpty ─────────────────────────────────────────────────────
 
+        #[Group("Utilities")]
         #[Define(
             name: "isDirectoryEmpty() — Returns False For Non-Empty Directory",
             description: "isDirectoryEmpty() returns false when the directory contains at least one file."
@@ -195,6 +208,7 @@
             $this->assertTrue(!$result, "isDirectoryEmpty() should return false when the directory contains a file.");
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "isDirectoryEmpty() — Returns True For Empty Directory",
             description: "isDirectoryEmpty() returns true after all files in the directory are removed."

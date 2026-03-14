@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Resolution Result Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\NamespaceManager;
     use Wingman\Locator\Objects\ResolutionContext;
@@ -29,6 +33,7 @@
             return ResolutionContext::create(NamespaceManager::DEFAULT_NAMESPACE);
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "continue() — Is Not Terminal",
             description: "A result created with continue() returns false from isTerminal()."
@@ -39,6 +44,7 @@
             $this->assertTrue(!$result->isTerminal(), "A continuation result should not be terminal.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "terminal() — Is Terminal",
             description: "A result created with terminal() returns true from isTerminal()."
@@ -49,6 +55,7 @@
             $this->assertTrue($result->isTerminal(), "A terminal result should report isTerminal() as true.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "continue() — getPath() Returns Value",
             description: "getPath() on a continuation result returns the path passed to continue()."
@@ -59,6 +66,7 @@
             $this->assertTrue($result->getPath() === "/some/path", "getPath() should return the value given to continue().");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "terminal() — getResource() Returns Value",
             description: "getResource() on a terminal result returns the resource passed to terminal()."
@@ -69,6 +77,7 @@
             $this->assertTrue($result->getResource() === "/resolved/resource.php", "getResource() should return the terminal value.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "getContext() — Returns Stored Context",
             description: "getContext() returns the same ResolutionContext instance that was passed in."
@@ -80,6 +89,7 @@
             $this->assertTrue($result->getContext() === $context, "getContext() should return the exact context passed in.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "continue() — PathExpression Object Is Preserved",
             description: "When a PathExpression is passed to continue(), getPath() returns the same PathExpression."
@@ -91,6 +101,7 @@
             $this->assertTrue($result->getPath() === $expr, "getPath() should return the original PathExpression instance.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "terminal() — Null Resource Is Accepted",
             description: "terminal() accepts null as a resource without throwing."

@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Path Facade Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\Enums\PathRootVariable;
     use Wingman\Locator\Facades\Path;
@@ -61,6 +65,7 @@
             Locator::setGlobal(null);
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "Path::for() — Delegates To getPathFor()",
             description: "Path::for() calls getPathFor() on the injected locator and returns its exact string result."
@@ -74,6 +79,7 @@
             );
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "Path::to() — Delegates To getPathTo()",
             description: "Path::to() calls getPathTo() on the injected locator and returns its exact result."
@@ -87,6 +93,7 @@
             );
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "Path::toDirectory() — Delegates To getPathToDirectory()",
             description: "Path::toDirectory() calls getPathToDirectory() on the injected locator and returns its result."
@@ -100,6 +107,7 @@
             );
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "Path::toFile() — Delegates To getPathToFile()",
             description: "Path::toFile() calls getPathToFile() on the injected locator and returns its result."
@@ -113,6 +121,7 @@
             );
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "Path::toNamespace() — Delegates To getPathToNamespace()",
             description: "Path::toNamespace() calls getPathToNamespace() on the injected locator and returns its result."
@@ -126,6 +135,7 @@
             );
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "Path::toRoot() — Delegates To getPathToRoot()",
             description: "Path::toRoot() calls getPathToRoot() on the injected locator and returns its result."
@@ -139,6 +149,7 @@
             );
         }
 
+        #[Group("Locator")]
         #[Define(
             name: "setLocator(null) — Restores Singleton Fallback",
             description: "After calling setLocator(null), the facade falls back to the Locator singleton instead of the injected mock."

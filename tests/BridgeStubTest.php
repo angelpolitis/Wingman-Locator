@@ -1,18 +1,22 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Bridge Stub Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
-    use Wingman\Locator\Bridge\Cacher\CacheManager as BridgeCacheManager;
+    use Wingman\Locator\Bridge\Stasis\CacheManager as BridgeCacheManager;
     use Wingman\Locator\Bridge\Cortex\Configuration as CortexBridge;
     use Wingman\Locator\Bridge\Corvus\Emitter;
     use Wingman\Locator\CacheManager as BaseCacheManager;
@@ -38,6 +42,7 @@
 
         // ─── Cortex / Configuration ───────────────────────────────────────────────
 
+        #[Group("Bridges")]
         #[Define(
             name: "Cortex Bridge — find() Returns Null Or Instance",
             description: "CortexBridge::find() returns null when no named configuration exists, or a Configuration instance when one does."
@@ -51,6 +56,7 @@
             );
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Cortex Bridge — exists() Returns Bool",
             description: "CortexBridge::exists() returns false for an unregistered name and always returns a boolean."
@@ -62,6 +68,7 @@
             $this->assertFalse($result, "exists() should return false for an unregistered name.");
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Cortex Bridge — getAll() And getAllNames() Return Arrays",
             description: "Both registry accessors always return arrays, even when Cortex is unavailable."
@@ -71,6 +78,7 @@
             $this->assertTrue(is_array(CortexBridge::getAllNames()), "getAllNames() should return an array.");
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Cortex Bridge — hydrate() Returns Configuration Instance",
             description: "CortexBridge::hydrate() returns the source Configuration when one is passed in."
@@ -84,6 +92,7 @@
             $this->assertTrue($returned instanceof CortexBridge, "hydrate() should return a Configuration instance.");
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Cortex Bridge — captureObject() Returns Fluent Instance",
             description: "captureObject() returns the same Configuration instance for fluent chaining."
@@ -97,6 +106,7 @@
             $this->assertTrue($returned instanceof CortexBridge, "captureObject() should return a Configuration instance.");
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Cortex Bridge — restoreObject() Returns Fluent Instance",
             description: "restoreObject() returns the same Configuration instance for fluent chaining."
@@ -113,6 +123,7 @@
 
         // ─── Corvus / Emitter ─────────────────────────────────────────────────────
 
+        #[Group("Bridges")]
         #[Define(
             name: "Corvus Bridge — create() Returns Instance",
             description: "Emitter::create() returns an object satisfying the emitter contract."
@@ -123,6 +134,7 @@
             $this->assertTrue(is_object($emitter), "Emitter::create() should return an object.");
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Corvus Bridge — for() Returns Instance",
             description: "Emitter::for() returns an object satisfying the emitter contract."
@@ -134,6 +146,7 @@
             $this->assertTrue(is_object($emitter), "Emitter::for() should return an object.");
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Corvus Bridge — emit() Returns Fluent Instance",
             description: "Emitter::emit() returns the same emitter instance for fluent chaining."
@@ -145,6 +158,7 @@
             $this->assertTrue($returned === $emitter, "emit() should return the same instance for fluent chaining.");
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Corvus Bridge — with() Returns Fluent Instance",
             description: "Emitter::with() returns the same emitter instance for fluent chaining."
@@ -156,6 +170,7 @@
             $this->assertTrue($returned === $emitter, "with() should return the same instance for fluent chaining.");
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Corvus Bridge — getPayload() Returns Array",
             description: "Emitter::getPayload() returns an array (empty for the stub, possibly populated for the real Corvus)."
@@ -167,6 +182,7 @@
             $this->assertTrue(is_array($payload), "getPayload() should return an array.");
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Corvus Bridge — hasPredicates() Returns Bool",
             description: "Emitter::hasPredicates() returns a boolean (false for the stub when no predicates are set)."
@@ -180,17 +196,18 @@
 
         // ─── Cacher / CacheManager ────────────────────────────────────────────────
 
+        #[Group("Bridges")]
         #[Define(
             name: "Cacher Bridge — Extends BaseCacheManager",
             description: "BridgeCacheManager is a subclass of the base CacheManager to satisfy Liskov substitution."
         )]
         public function testCacherBridgeExtendsCacheManager () : void {
-            if (!class_exists(\Wingman\Cacher\Cacher::class)) {
-                $this->assertTrue(true, "Skipped: Wingman Cacher is not installed.");
+            if (!class_exists(\Wingman\Stasis\Cacher::class)) {
+                $this->assertTrue(true, "Skipped: Wingman Stasis is not installed.");
                 return;
             }
 
-            $cacher = new \Wingman\Cacher\Cacher();
+            $cacher = new \Wingman\Stasis\Cacher();
             $bridge = new BridgeCacheManager($cacher, 0);
 
             $this->assertTrue(
@@ -199,17 +216,18 @@
             );
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Cacher Bridge — load() Returns Null When Cache Empty",
             description: "BridgeCacheManager::load() returns null when no locator.discovery.cache entry exists in Cacher."
         )]
         public function testCacherBridgeLoadReturnsNullWhenCacheEmpty () : void {
-            if (!class_exists(\Wingman\Cacher\Cacher::class)) {
-                $this->assertTrue(true, "Skipped: Wingman Cacher is not installed.");
+            if (!class_exists(\Wingman\Stasis\Cacher::class)) {
+                $this->assertTrue(true, "Skipped: Wingman Stasis is not installed.");
                 return;
             }
 
-            $cacher = new \Wingman\Cacher\Cacher();
+            $cacher = new \Wingman\Stasis\Cacher();
             $bridge = new BridgeCacheManager($cacher, 0);
             $bridge->clear();
 
@@ -218,17 +236,18 @@
             $this->assertTrue($result === null, "load() should return null when the Cacher entry has been cleared.");
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Cacher Bridge — save() And load() Round-Trip",
             description: "After calling save(), load() restores the exact manifest and root data that was saved."
         )]
         public function testCacherBridgeSaveAndLoadRoundTrip () : void {
-            if (!class_exists(\Wingman\Cacher\Cacher::class)) {
-                $this->assertTrue(true, "Skipped: Wingman Cacher is not installed.");
+            if (!class_exists(\Wingman\Stasis\Cacher::class)) {
+                $this->assertTrue(true, "Skipped: Wingman Stasis is not installed.");
                 return;
             }
 
-            $cacher = new \Wingman\Cacher\Cacher();
+            $cacher = new \Wingman\Stasis\Cacher();
             $bridge = new BridgeCacheManager($cacher, 0);
             $bridge->clear();
 
@@ -252,17 +271,18 @@
             @unlink($tempFile);
         }
 
+        #[Group("Bridges")]
         #[Define(
             name: "Cacher Bridge — clear() Returns True",
             description: "BridgeCacheManager::clear() returns true regardless of whether an entry exists."
         )]
         public function testCacherBridgeClearReturnsTrue () : void {
-            if (!class_exists(\Wingman\Cacher\Cacher::class)) {
-                $this->assertTrue(true, "Skipped: Wingman Cacher is not installed.");
+            if (!class_exists(\Wingman\Stasis\Cacher::class)) {
+                $this->assertTrue(true, "Skipped: Wingman Stasis is not installed.");
                 return;
             }
 
-            $cacher = new \Wingman\Cacher\Cacher();
+            $cacher = new \Wingman\Stasis\Cacher();
             $bridge = new BridgeCacheManager($cacher, 0);
 
             $result = $bridge->clear();

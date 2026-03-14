@@ -1,17 +1,21 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Console Bridge — Cache Status Command Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 13 2026
      * Last Modified:   Mar 13 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use ReflectionClass;
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Console\Attributes\Command as Cmd;
     use Wingman\Console\Console;
@@ -52,6 +56,7 @@
             if (ob_get_level() > 0) ob_end_clean();
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "CacheStatusCommand — Cmd Attribute Name",
             description: "The #[Cmd] attribute on CacheStatusCommand declares the name 'locator:cache:status'."
@@ -62,6 +67,7 @@
             $this->assertTrue($name === "locator:cache:status", "CacheStatusCommand should declare the name 'locator:cache:status'.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "cache:status — Always Returns Zero (Caching Disabled)",
             description: "When the Locator has caching disabled, run() still returns 0 — status is a read-only diagnostic."
@@ -79,6 +85,7 @@
             $this->assertTrue($result === 0, "run() should always return 0 regardless of cache state.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "cache:status — Always Returns Zero (Default Locator)",
             description: "With a default Locator instance, run() returns 0 and renders the status table."

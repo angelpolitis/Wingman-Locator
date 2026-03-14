@@ -1,17 +1,21 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — PathUtils Tests
      * Created by:      Angel Politis
      * Creation Date:   Feb 23 2026
      * Last Modified:   Feb 23 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Test;
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Locator\PathUtils;
     use Wingman\Locator\Exceptions\PathTraversalException;
 
@@ -20,6 +24,7 @@
      */
     class PathUtilsTest extends Test {
 
+        #[Group("Utilities")]
         #[Define(
             name: "Path Normalisation",
             description: "Tests that paths are correctly collapsed and directory separators are standardised."
@@ -45,6 +50,7 @@
             }
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "Path Clamping / Strict Mode",
             description: "Ensures resolvePath/clamp throws an exception when attempting to escape the root."
@@ -63,6 +69,7 @@
             $this->assertTrue($thrown, "Expected PathTraversalException for escaping path '$maliciousPath'.");
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "Path Clamping / Sibling Directory Exploit",
             description: "Ensures /var/www/html cannot access /var/www/html_data via string prefix matching."
@@ -80,6 +87,7 @@
             );
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "Windows Absolute Path Detection",
             description: "Tests cross-platform absolute path detection including Windows drive letters and UNC paths."
@@ -93,6 +101,7 @@
             $this->assertTrue(!PathUtils::isAbsolutePath('relative/path'), "Relative path should not be absolute.");
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "URL and Stream Detection",
             description: "Tests detection of various stream wrappers and URL schemes."
@@ -105,6 +114,7 @@
             $this->assertTrue(PathUtils::isDataURL('data:text/plain;base64,SGVsbG8='), "Data URI should be detected.");
         }
 
+        #[Group("Utilities")]
         #[Define(
             name: "Path Joining",
             description: "Tests that joining fragments handles separators correctly without duplication."

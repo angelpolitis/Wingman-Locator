@@ -1,17 +1,21 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Console Bridge — Validate Command Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 13 2026
      * Last Modified:   Mar 13 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use ReflectionClass;
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Console\Attributes\Command as Cmd;
     use Wingman\Console\Console;
@@ -96,6 +100,7 @@
             if (ob_get_level() > 0) ob_end_clean();
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "ValidateCommand — Cmd Attribute Name",
             description: "The #[Cmd] attribute on ValidateCommand declares the name 'locator:validate'."
@@ -106,6 +111,7 @@
             $this->assertTrue($name === "locator:validate", "ValidateCommand should declare the name 'locator:validate'.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "validate — Returns Zero When No Symbols Registered",
             description: "When the manifest repository has no symbols, run() warns and returns 0."
@@ -123,6 +129,7 @@
             $this->assertTrue($result === 0, "run() should return 0 when there are no symbols to validate.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "validate — Strict Mode Returns Zero When No Symbols",
             description: "With --strict and no symbols registered, run() still returns 0 — nothing has failed."
@@ -140,6 +147,7 @@
             $this->assertTrue($result === 0, "run() with --strict should return 0 when there are no symbols.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "validate — Strict Mode Returns One For Missing Symbols",
             description: "With --strict active and symbols resolving to non-existent paths, run() returns 1."
@@ -161,6 +169,7 @@
             $this->assertTrue($result === 1, "run() with --strict should return 1 when at least one symbol resolves to a missing path.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "validate — Normal Mode Returns Zero Even For Missing Symbols",
             description: "Without --strict, run() returns 0 even when symbols resolve to non-existent paths."

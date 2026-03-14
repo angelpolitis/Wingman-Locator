@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Path Expression Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\Enums\PathRootType;
     use Wingman\Locator\Enums\PathRootVariable;
@@ -21,6 +25,7 @@
      */
     class PathExpressionTest extends Test {
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Parse — Namespace @ Notation",
             description: "from() correctly identifies @Namespace/path as a NAMESPACE root."
@@ -33,6 +38,7 @@
             $this->assertTrue(str_contains($expr->getRelativePath(), "Controllers"), "Relative path should contain 'Controllers'.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Parse — Namespace Colon Notation",
             description: "from() correctly identifies Framework:path as a NAMESPACE root."
@@ -44,6 +50,7 @@
             $this->assertTrue($expr->getRootArg() === "Framework", "Expected root arg 'Framework'.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Parse — Variable Bracketed",
             description: "from() correctly identifies @{server}/path as a VARIABLE root with the 'server' variable."
@@ -56,6 +63,7 @@
             $this->assertTrue(str_contains($expr->getRelativePath(), "public"), "Relative path should contain 'public'.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Parse — Variable CWD",
             description: "from() identifies @{cwd} as a VARIABLE root with the CWD variable."
@@ -66,6 +74,7 @@
             $this->assertTrue($expr->getVariable() === PathRootVariable::CWD, "Expected CWD variable.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Parse — Variable Unknown",
             description: "from() stores UNKNOWN for unrecognised variable names."
@@ -77,6 +86,7 @@
             $this->assertTrue($expr->getVariable() === PathRootVariable::UNKNOWN, "Expected UNKNOWN variable for unrecognised name.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Parse — Absolute Path",
             description: "from() identifies /unix/path as an ABSOLUTE root."
@@ -87,6 +97,7 @@
             $this->assertTrue($expr->getRootType() === PathRootType::ABSOLUTE, "Expected ABSOLUTE root type.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Parse — Explicit Relative",
             description: "from() identifies ./relative as RELATIVE_EXPLICIT and strips the leading dot-slash."
@@ -98,6 +109,7 @@
             $this->assertTrue(!str_starts_with($expr->getRelativePath(), "./"), "Relative path should not retain leading './'.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Parse — Implicit Relative",
             description: "from() identifies a bare word path as RELATIVE_IMPLICIT."
@@ -108,6 +120,7 @@
             $this->assertTrue($expr->getRootType() === PathRootType::RELATIVE_IMPLICIT, "Expected RELATIVE_IMPLICIT root type.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Parse — Windows Drive",
             description: "from() identifies C:\\Windows\\System32 as a DRIVE root."
@@ -119,6 +132,7 @@
             $this->assertTrue($expr->getRootArg() === "C", "Expected drive letter 'C'.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "Namespace With No Relative Part",
             description: "from() handles a bare namespace (@App) with no relative path; getRelativePath() returns an empty string."
@@ -131,6 +145,7 @@
             $this->assertTrue($expr->getRelativePath() === "", "Relative path should be empty for a bare namespace.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "URL Is Not Parsed As Namespace",
             description: "https://example.com is not identified as a NAMESPACE root (protocol schemes are not Wingman namespaces)."
@@ -141,6 +156,7 @@
             $this->assertTrue($expr->getRootType() !== PathRootType::NAMESPACE, "A URL should not be classified as NAMESPACE.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "normalise() — String Input Returns PathExpression",
             description: "normalise() called with a string returns a PathExpression instance."
@@ -151,6 +167,7 @@
             $this->assertTrue($result instanceof PathExpression, "normalise() should return a PathExpression for string input.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "normalise() — PathExpression Input Returns Same Instance",
             description: "normalise() called with an existing PathExpression returns the same object."
@@ -162,6 +179,7 @@
             $this->assertTrue($result === $expr, "normalise() should return the same PathExpression instance when given one.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "withRelativePath() — Creates New Instance",
             description: "withRelativePath() returns a new PathExpression with the updated relative path, leaving the original unchanged."
@@ -175,6 +193,7 @@
             $this->assertTrue(str_contains($original->getRelativePath(), "old"), "Original instance should retain its relative path.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "__toString() — Namespace Expression Roundtrip",
             description: "A NAMESPACE expression serialises back to a recognisable string that re-parses to the same root type and arg."
@@ -188,6 +207,7 @@
             $this->assertTrue($reparsed->getRootArg() === "App", "Re-parsed root arg should be 'App'.");
         }
 
+        #[Group("Path Expressions")]
         #[Define(
             name: "__toString() — Variable Expression Roundtrip",
             description: "A VARIABLE expression serialises back to a string that re-parses to the same variable."

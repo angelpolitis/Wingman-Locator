@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Resolvers Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\Enums\PathRootVariable;
     use Wingman\Locator\Exceptions\UnknownNamespaceException;
@@ -56,6 +60,7 @@
 
         // ── RelativeSegmentResolver ────────────────────────────────────────────────
 
+        #[Group("Resolution")]
         #[Define(
             name: "RelativeSegmentResolver — Dot Dot Collapsed",
             description: "A relative path containing '..' is collapsed by RelativeSegmentResolver."
@@ -73,6 +78,7 @@
             );
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "RelativeSegmentResolver — No Segments Returns Null",
             description: "A relative path without any '.' or '..' segments causes the resolver to return null (no-op)."
@@ -86,6 +92,7 @@
             $this->assertTrue($result === null, "Resolver should return null when no relative segments need collapsing.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "RelativeSegmentResolver — Single Dot Stripped",
             description: "A '.' segment in the relative path is stripped correctly."
@@ -105,6 +112,7 @@
 
         // ── RelativeResolver ───────────────────────────────────────────────────────
 
+        #[Group("Resolution")]
         #[Define(
             name: "RelativeResolver — Explicit Relative Resolved",
             description: "A RELATIVE_EXPLICIT path is joined with the context's relative root."
@@ -120,6 +128,7 @@
             $this->assertTrue($result instanceof ResolutionResult, "Resolver should handle RELATIVE_EXPLICIT paths.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "RelativeResolver — Implicit Relative Resolved",
             description: "A RELATIVE_IMPLICIT path is joined with the context's relative root."
@@ -135,6 +144,7 @@
             $this->assertTrue($result instanceof ResolutionResult, "Resolver should handle RELATIVE_IMPLICIT paths.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "RelativeResolver — Non-Relative Returns Null",
             description: "An absolute or namespace-rooted path causes RelativeResolver to return null."
@@ -150,6 +160,7 @@
 
         // ── AbsoluteResolver ──────────────────────────────────────────────────────
 
+        #[Group("Resolution")]
         #[Define(
             name: "AbsoluteResolver — Prepends Server Root",
             description: "An ABSOLUTE path (/api/config) is joined to the server root from the context."
@@ -167,6 +178,7 @@
             $this->assertTrue(str_starts_with($resolved, PathUtils::fix("/var/www")), "Resolved path should begin with the server root.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "AbsoluteResolver — Non-Absolute Returns Null",
             description: "A NAMESPACE or RELATIVE path causes AbsoluteResolver to return null."
@@ -180,6 +192,7 @@
             $this->assertTrue($result === null, "AbsoluteResolver should return null for non-absolute paths.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "AbsoluteResolver — Already Resolved Is No-Op",
             description: "A path that already begins with the server root is returned unchanged (no loop)."
@@ -208,6 +221,7 @@
 
         // ── NamespaceResolver ─────────────────────────────────────────────────────
 
+        #[Group("Resolution")]
         #[Define(
             name: "NamespaceResolver — Known Namespace Resolved",
             description: "A @Namespace/path expression with a registered namespace is resolved to the namespace root."
@@ -225,6 +239,7 @@
             $this->assertTrue(str_contains($resolved, "app"), "Resolved path should contain the namespace root.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "NamespaceResolver — Unknown Namespace Throws UnknownNamespaceException",
             description: "A @UnknownNs/path expression throws UnknownNamespaceException."
@@ -245,6 +260,7 @@
             $this->assertTrue($thrown, "NamespaceResolver should throw UnknownNamespaceException for an unregistered namespace.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "NamespaceResolver — Non-Namespace Path Returns Null",
             description: "An absolute path is not handled by NamespaceResolver and it returns null."
@@ -258,6 +274,7 @@
             $this->assertTrue($result === null, "NamespaceResolver should return null for non-namespace input.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "NamespaceResolver — Namespace With No Relative Path",
             description: "A bare @Namespace expression with no relative part resolves to the namespace root path."
@@ -278,6 +295,7 @@
 
         // ── VariableResolver ──────────────────────────────────────────────────────
 
+        #[Group("Resolution")]
         #[Define(
             name: "VariableResolver — SERVER Variable Resolved",
             description: "@{server}/path resolves to a path rooted at the context's server root."
@@ -295,6 +313,7 @@
             $this->assertTrue(str_contains(PathUtils::fix($resolved), "var"), "Resolved path should be under /var/www.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "VariableResolver — CWD Variable Resolved",
             description: "@{cwd}/path resolves to a path rooted at the context's CWD root."
@@ -311,6 +330,7 @@
             $this->assertTrue(str_contains(PathUtils::fix($result->getResource()), "deploy"), "Result should reference the CWD root.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "VariableResolver — Non-Variable Returns Null",
             description: "A NAMESPACE path causes VariableResolver to return null."
@@ -324,6 +344,7 @@
             $this->assertTrue($result === null, "VariableResolver should return null for non-variable paths.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "VariableResolver — Unknown Variable Throws",
             description: "@{nonexistent}/path throws a RuntimeException because the variable is UNKNOWN."
@@ -346,6 +367,7 @@
 
         // ── SymbolResolver ────────────────────────────────────────────────────────
 
+        #[Group("Resolution")]
         #[Define(
             name: "SymbolResolver — Bounded Syntax %{name}",
             description: "A path containing %{controllers} is replaced with the symbol's target."
@@ -363,6 +385,7 @@
             $this->assertTrue(!str_contains($resolved, "%{controllers}"), "Symbol token should have been replaced.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "SymbolResolver — Unbounded Syntax %name",
             description: "A path containing %controllers is replaced with the symbol's target."
@@ -380,6 +403,7 @@
             $this->assertTrue(!str_contains($resolved, "%controllers"), "Symbol token should have been replaced.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "SymbolResolver — Unknown Symbol Returns Null",
             description: "A path whose %symbol name is not registered causes the resolver to return null."
@@ -394,6 +418,7 @@
             $this->assertTrue($result === null, "Resolver should return null for an unregistered symbol.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "SymbolResolver — Result Context Carries Symbol",
             description: "After successful resolution, the result's context symbol is set to the matched Symbol."
@@ -412,6 +437,7 @@
 
         // ── VirtualResolver ───────────────────────────────────────────────────────
 
+        #[Group("Resolution")]
         #[Define(
             name: "VirtualResolver — String Virtual Resolved",
             description: "A path mapped to a string virtual entry resolves to the string target."
@@ -433,6 +459,7 @@
             );
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "VirtualResolver — Non-Matching Path Returns Null",
             description: "A path that has no matching virtual entry causes VirtualResolver to return null."
@@ -447,6 +474,7 @@
             $this->assertTrue($result === null, "VirtualResolver should return null for a non-matching path.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "VirtualResolver — Non-Absolute Path Returns Null",
             description: "A relative or namespace-rooted path causes VirtualResolver to return null immediately."
@@ -461,6 +489,7 @@
             $this->assertTrue($result === null, "VirtualResolver should return null for non-absolute input.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "VirtualResolver — Directory Virtual With Source Resolves Remainder",
             description: "A directory virtual with a source path maps remaining path segments under its source."
@@ -484,6 +513,7 @@
 
         // ── PathResolutionPipeline ─────────────────────────────────────────────────
 
+        #[Group("Resolution")]
         #[Define(
             name: "Pipeline — Circular Detection Throws",
             description: "A pipeline that would cycle on the same fingerprint throws a RuntimeException."
@@ -532,6 +562,7 @@
             $this->assertTrue($thrown, "The pipeline should throw a RuntimeException when a circular resolution is detected.");
         }
 
+        #[Group("Resolution")]
         #[Define(
             name: "Pipeline — Resolvers Are Tried In Order",
             description: "The pipeline restarts after any change; a later resolver's change triggers the first resolver again."

@@ -1,17 +1,21 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Console Bridge — Virtuals Command Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 13 2026
      * Last Modified:   Mar 13 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use ReflectionClass;
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Console\Attributes\Command as Cmd;
     use Wingman\Console\Console;
@@ -91,6 +95,7 @@
             if (ob_get_level() > 0) ob_end_clean();
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "VirtualsCommand — Cmd Attribute Name",
             description: "The #[Cmd] attribute on VirtualsCommand declares the name 'locator:virtuals'."
@@ -101,6 +106,7 @@
             $this->assertTrue($name === "locator:virtuals", "VirtualsCommand should declare the name 'locator:virtuals'.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "virtuals — Returns Zero When Namespace Filter Yields No Match",
             description: "When --namespace is specified but no virtual entry belongs to it, run() returns 0."
@@ -120,6 +126,7 @@
             $this->assertTrue($result === 0, "run() should return 0 when the namespace filter matches no virtuals.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "virtuals — Returns Zero When No Virtuals Registered",
             description: "When all manifests have empty virtual tables, run() returns 0."
@@ -137,6 +144,7 @@
             $this->assertTrue($result === 0, "run() should return 0 when no virtual entries exist.");
         }
 
+        #[Group("Commands")]
         #[Define(
             name: "virtuals — Returns Zero With Populated Virtual Table",
             description: "When virtual entries are present and no filter is applied, run() returns 0 and renders the table."

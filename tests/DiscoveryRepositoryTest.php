@@ -1,16 +1,20 @@
 <?php
-    /*/
+    /**
      * Project Name:    Wingman — Locator — Discovery Repository Tests
      * Created by:      Angel Politis
      * Creation Date:   Mar 12 2026
      * Last Modified:   Mar 12 2026
-    /*/
-
+     *
+     * Copyright (c) 2026-2026 Angel Politis <info@angelpolitis.com>
+     * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+     * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+     */
     # Use the Locator.Tests namespace.
     namespace Wingman\Locator\Tests;
 
     # Import the following classes to the current scope.
     use Wingman\Argus\Attributes\Define;
+    use Wingman\Argus\Attributes\Group;
     use Wingman\Argus\Test;
     use Wingman\Locator\Objects\DiscoveryProfile;
     use Wingman\Locator\Objects\DiscoveryRepository;
@@ -28,6 +32,7 @@
             return DiscoveryProfile::from([]);
         }
 
+        #[Group("Discovery")]
         #[Define(
             name: "has() — Returns False For Empty Repo",
             description: "A freshly created repository reports has() as false for any path/profile combination."
@@ -38,6 +43,7 @@
             $this->assertTrue(!$repo->has("/var/www", $this->defaultProfile()), "Empty repo should return false for any query.");
         }
 
+        #[Group("Discovery")]
         #[Define(
             name: "add() + has() — Round-Trip",
             description: "After add(), has() returns true for the same path and profile."
@@ -51,6 +57,7 @@
             $this->assertTrue($repo->has("/var/www", $profile), "has() should return true for the added path/profile pair.");
         }
 
+        #[Group("Discovery")]
         #[Define(
             name: "add() — Different Profile Not Found",
             description: "has() returns false when the path exists but with a different profile instance."
@@ -65,6 +72,7 @@
             $this->assertTrue(!$repo->has("/var/www", $profileB), "Different profile should not match even for the same path.");
         }
 
+        #[Group("Discovery")]
         #[Define(
             name: "add() — Different Path Not Found",
             description: "has() returns false when the same profile was added under a different path."
@@ -78,6 +86,7 @@
             $this->assertTrue(!$repo->has("/srv/app", $profile), "A different path with the same profile should not match.");
         }
 
+        #[Group("Discovery")]
         #[Define(
             name: "add() — Returns Self",
             description: "add() returns the same repository instance for method chaining."
@@ -89,6 +98,7 @@
             $this->assertTrue($result === $repo, "add() should return the same instance.");
         }
 
+        #[Group("Discovery")]
         #[Define(
             name: "getAll() — Returns All Entries",
             description: "getAll() returns every path/profile pair added to the repository in order."
@@ -105,6 +115,7 @@
             $this->assertTrue($all[1]["path"] === "/path/two", "Second entry path should be '/path/two'.");
         }
 
+        #[Group("Discovery")]
         #[Define(
             name: "Key Hardening — Pipe In Path Does Not Collide",
             description: "A path containing a pipe character does not produce the same key as a path without it when profiles differ."
@@ -120,6 +131,7 @@
             $this->assertTrue(!$repo->has("/path", $profileA), "A different path must not match even if it shares a prefix.");
         }
 
+        #[Group("Discovery")]
         #[Define(
             name: "exportContent() — Returns Array",
             description: "exportContent() returns a non-empty array when at least one entry has been added."
