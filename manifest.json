@@ -1,0 +1,54 @@
+{
+    "name": "Wingman/Locator",
+    "version": "1.0.0",
+    "type": "library",
+    "description": "A powerful and flexible path resolution system for PHP applications, enabling dynamic discovery and resolution of file paths based on namespaces, symbols, and virtual paths.",
+    "authors": [
+        {
+            "name": "Angel Politis",
+            "email": "info@angelpolitis.com"
+        }
+    ],
+    "license": "MPL-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/angelpolitis/Wingman-Locator.git"
+    },
+    "homepage": "https://github.com/angelpolitis/Wingman-Locator",
+    "php": ">=8.0",
+    "dependencies": [
+        {
+            "package": "Wingman/Argus",
+            "version": ">=1.0",
+            "optional": true
+        },
+        {
+            "package": "Wingman/Cacher",
+            "version": ">=1.0",
+            "optional": true
+        },
+        {
+            "package": "Wingman/Console",
+            "version": ">=1.0",
+            "optional": true
+        },
+        {
+            "package": "Wingman/Cortex",
+            "version": ">=1.0",
+            "optional": true
+        },
+        {
+            "package": "Wingman/Corvus",
+            "version": ">=1.0",
+            "optional": true
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Wingman.Locator.": "src/"
+        },
+        "files": [
+            "autoload.php"
+        ]
+    }
+}

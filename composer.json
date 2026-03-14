@@ -1,0 +1,38 @@
+{
+    "name": "wingman/locator",
+    "type": "library",
+    "description": "A powerful and flexible path resolution system for PHP applications, enabling dynamic discovery and resolution of file paths based on namespaces, symbols, and virtual paths.",
+    "keywords": ["php", "path-resolution", "namespace", "discovery", "manifest", "autoload", "wingman"],
+    "license": "MPL-2.0",
+    "authors": [
+        {
+            "name": "Angel Politis",
+            "email": "info@angelpolitis.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+        "wingman/argus": ">=1.0"
+    },
+    "suggest": {
+        "wingman/argus": "Required to run the test suite.",
+        "wingman/cacher": "Enables key-value cache storage via the Cacher bridge.",
+        "wingman/console": "Enables CLI commands via the Console bridge.",
+        "wingman/cortex": "Enables configuration injection via the Cortex bridge.",
+        "wingman/corvus": "Enables signal emission via the Corvus bridge."
+    },
+    "autoload": {
+        "psr-4": {
+            "Wingman\\Locator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Wingman\\Locator\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
